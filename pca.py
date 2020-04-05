@@ -63,19 +63,14 @@ class PCA:
         # ====================================================
         # TODO: Implement your solution within the box
 
-        cov_matrix = np.cov(X.T)
+        X_b = X - self.mean
+        cov_matrix = np.cov(X_b.T)
         eigen_values, eigen_vectors = np.linalg.eigh(cov_matrix)
         
         # sort
         ordered_eigen_values = np.flip(eigen_values.argsort())
         eigen_values = eigen_values[ordered_eigen_values]
         eigen_vectors = eigen_vectors[:, ordered_eigen_values]
-
-        # save principal components
-        #components = np.matmul(X, eigen_vectors)
-        #print(np.shape(X))
-        #print(np.shape(components))
-        #print(np.shape(eigen_vectors))
 
         return eigen_vectors      
         # ====================================================
@@ -103,8 +98,6 @@ class PCA:
 
         W = np.take(self.V, np.arange(K), axis=0)
         low_dim_X = np.matmul((X - self.mean), W.T)
-        #print(np.shape(low_dim_X))
-        #print(K)
 
         return low_dim_X        
         # ====================================================
@@ -132,10 +125,8 @@ class PCA:
         # TODO: Implement your solution within the box
 
         W = np.take(self.V, np.arange(np.shape(low_dim_X)[1]), axis=0)
-        #print(np.shape(W))
         yi_b = np.matmul(low_dim_X, W)
         X = yi_b + self.mean
-        #print(np.shape(X))
 
         return X        
         # ====================================================

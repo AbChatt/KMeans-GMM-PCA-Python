@@ -6,14 +6,14 @@ B. Chan, S. Wei, D. Fleet
 
  COMPLETE THIS TEXT BOX:
 
- Student Name:
- Student number:
- UtorID:
+ Student Name: Abhishek Chatterjee
+ Student number: 1004820615
+ UtorID: chatt114
 
  I hereby certify that the work contained here is my own
 
 
- ____________________
+ _Abhishek Chatterjee_
  (sign with your name)
 
 ===========================================================
@@ -71,12 +71,14 @@ class KMeans:
 
         labels = np.empty(shape=(N, 1), dtype=np.long)
         distances = np.empty(shape=(N, self.K))
-        labels = np.empty(shape=(N, 1), dtype=np.long)
+
         for _ in range(max_iterations):
             old_labels = labels
 
             # ====================================================
             # TODO: Implement your solution within the box
+
+            distances = np.argmin((np.linalg.norm(X - self.centers))**2)
             
             # ====================================================
 
