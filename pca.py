@@ -6,14 +6,14 @@ B. Chan, S. Wei, D. Fleet
 
  COMPLETE THIS TEXT BOX:
 
- Student Name:
- Student number:
- UtorID:
+ Student Name: Abhishek Chatterjee
+ Student number: 1004820615
+ UtorID: chatt114
 
  I hereby certify that the work contained here is my own
 
 
- ____________________
+ _Abhishek Chatterjee_
  (sign with your name)
 
 ===========================================================
@@ -62,7 +62,22 @@ class PCA:
 
         # ====================================================
         # TODO: Implement your solution within the box
+
+        cov_matrix = np.cov(X.T)
+        eigen_values, eigen_vectors = np.linalg.eigh(cov_matrix)
         
+        # sort
+        ordered_eigen_values = np.flip(eigen_values.argsort())
+        eigen_values = eigen_values[ordered_eigen_values]
+        eigen_vectors = eigen_vectors[:, ordered_eigen_values]
+
+        # save principal components
+        #components = np.matmul(X, eigen_vectors)
+        #print(np.shape(X))
+        #print(np.shape(components))
+        #print(np.shape(eigen_vectors))
+
+        return eigen_vectors      
         # ====================================================
 
         assert V.shape == (D, D), f"V shape mismatch. Expected: {(D, D)}. Got: {V.shape}"
@@ -85,7 +100,13 @@ class PCA:
 
         # ====================================================
         # TODO: Implement your solution within the box
-        
+
+        W = np.take(self.V, np.arange(K), axis=0)
+        low_dim_X = np.matmul((X - self.mean), W.T)
+        #print(np.shape(low_dim_X))
+        #print(K)
+
+        return low_dim_X        
         # ====================================================
 
         assert low_dim_X.shape == (N, K), f"low_dim_X shape mismatch. Expected: {(N, K)}. Got: {low_dim_X.shape}"
@@ -109,7 +130,14 @@ class PCA:
 
         # ====================================================
         # TODO: Implement your solution within the box
-        
+
+        W = np.take(self.V, np.arange(np.shape(low_dim_X)[1]), axis=0)
+        #print(np.shape(W))
+        yi_b = np.matmul(low_dim_X, W)
+        X = yi_b + self.mean
+        #print(np.shape(X))
+
+        return X        
         # ====================================================
 
         assert X.shape == (N, D), f"X shape mismatch. Expected: {(N, D)}. Got: {X.shape}"
