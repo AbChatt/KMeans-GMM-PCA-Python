@@ -60,10 +60,10 @@ def main(data, K, num_display):
 
 if __name__ == "__main__":
     # You can change the seed to check other images.
-    seed = 100
+    seed = 0
     np.random.seed(seed)
 
     data = pickle.load(open("data/eye_image_data.pkl", "rb"))
-    K = 100
+    K = 499
     num_display = 10
     main(data, K, num_display)
